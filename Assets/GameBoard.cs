@@ -13,10 +13,12 @@ public class GameBoard : MonoBehaviour
     public TermPicker termPicker;
     public Timer timer1, timer2;
     public Button start;
+    public Button skip;
     public Canvas main;
     public Text win, teamCount1, teamCount2;
     public int[] points = { 0, 0 };
-    public int teamUp = 2;
+    public int teamNext = 2;
+    public bool canSkip = true;
     // Use this for initialization
     void Start()
     {
@@ -31,25 +33,25 @@ public class GameBoard : MonoBehaviour
         switch (gameState)
         {
             case GameState.team1:
-                teamUp = 2;
+                teamNext = 2;
                 timer1.transform.parent.GetComponent<Image>().color = new Color(.12f, .32f, .12f);
                 timer2.transform.parent.GetComponent<Image>().color = new Color(0, 0, 0, 0);
                 if (timer1.Increment())
                 {
                     gameState = GameState.start;
                     AddPoint(2);
-                    teamUp = 2;
+                    teamNext = 2;
                 }
                 break;
             case GameState.team2:
-                teamUp = 1;
+                teamNext = 1;
                 timer2.transform.parent.GetComponent<Image>().color = new Color(.12f, .32f, .12f);
                 timer1.transform.parent.GetComponent<Image>().color = new Color(0, 0, 0, 0);
                 if (timer2.Increment())
                 {
                     gameState = GameState.start;
                     AddPoint(1);
-                    teamUp = 1;
+                    teamNext = 1;
                 }
                 break;
             case GameState.win:
@@ -74,8 +76,9 @@ public class GameBoard : MonoBehaviour
     public void StartTerm()
     {
         start.gameObject.SetActive(false);
+        ShowSkip(true);
         termPicker.gameObject.SetActive(true);
-        if (teamUp == 1)
+        if (teamNext == 1)
         {
             gameState = GameState.team1;
         }
@@ -111,7 +114,7 @@ public class GameBoard : MonoBehaviour
             return;
         }
 
-        if (teamUp == 1)
+        if (teamNext == 1)
         {
             gameState = GameState.team1;
         }
@@ -119,7 +122,19 @@ public class GameBoard : MonoBehaviour
         {
             gameState = GameState.team2;
         }
+        ShowSkip(true);
         termPicker.ChangeTerm(false);
+    }
+
+    void ShowSkip(bool show)
+    {
+        skip.gameObject.SetActive(show);
+    }
+
+    public void Skip()
+    {
+        termPicker.ChangeTerm(false);
+        ShowSkip(false);
     }
 
     void AddPoint(int team)

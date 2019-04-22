@@ -23,7 +23,23 @@ public class TermPicker : MonoBehaviour
         "Refactoring",
         "Quick Design Session",
         "Product Backlog",
-        "User Personas" };
+        "User Personas",
+        "Epic",
+        "Kanban Board",
+        "Persona",
+        "Sprint backlog",
+        "Task Board",
+        "Sprint planning",
+        "Planning Poker",
+        "Daily Meeting",
+        "Iteration Review",
+        "Hard Skills",
+        "Soft Skills",
+        "Tasks",
+        "Self-Organizing teams",
+        "12 Principles of agile",
+        "Four Core Values of Agile",
+        "Team Members", };
     List<string> used = new List<string>();
 
     public Text termText;
