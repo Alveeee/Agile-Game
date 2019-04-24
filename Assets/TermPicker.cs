@@ -39,7 +39,15 @@ public class TermPicker : MonoBehaviour
         "Self-Organizing teams",
         "12 Principles of agile",
         "Four Core Values of Agile",
-        "Team Members", };
+        "Team Members",
+        "Extreme programming",
+        "Crystal",
+        "Lean",
+        "Feature driven development",
+        "Test driven development",
+        "Acceptance criteria",
+        "Backlog grooming",
+        "Burndown/burnup chart", };
     List<string> used = new List<string>();
 
     public Text termText;
@@ -49,11 +57,12 @@ public class TermPicker : MonoBehaviour
         bool finished = true;
         while (finished)
         {
-            if (terms.Count == used.Count)
+            if (terms.Count - used.Count <= 2)
                 break;
 
             int rand = Random.Range(0, terms.Count);
             string term = terms[rand];
+            Debug.Log(terms.Count - used.Count);
             if (!used.Contains(term))
             {
                 used.Add(term);
@@ -67,7 +76,7 @@ public class TermPicker : MonoBehaviour
 
     public bool isDone()
     {
-        if (terms.Count == used.Count)
+        if (terms.Count - used.Count <= 2)
             return true;
         else
             return false;

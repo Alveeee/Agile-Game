@@ -14,6 +14,8 @@ public class GameBoard : MonoBehaviour
     public Timer timer1, timer2;
     public Button start;
     public Button skip;
+    public Button rules;
+    public Button next;
     public Canvas main;
     public Text win, teamCount1, teamCount2;
     public int[] points = { 0, 0 };
@@ -76,6 +78,8 @@ public class GameBoard : MonoBehaviour
     public void StartTerm()
     {
         start.gameObject.SetActive(false);
+        rules.gameObject.SetActive(false);
+        next.gameObject.SetActive(true);
         ShowSkip(true);
         termPicker.gameObject.SetActive(true);
         if (teamNext == 1)
@@ -110,7 +114,7 @@ public class GameBoard : MonoBehaviour
     {
         if (termPicker.isDone())
         {
-            gameState = GameState.win;
+            AddPoint(teamNext);
             return;
         }
 
@@ -155,7 +159,8 @@ public class GameBoard : MonoBehaviour
             gameState = GameState.win;
 
         start.gameObject.SetActive(true);
-
+        next.gameObject.SetActive(false);
+        ShowSkip(false);
         timer1.Restart();
         timer2.Restart();
     }
